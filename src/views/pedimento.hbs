@@ -1,0 +1,85 @@
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-header text-center" >
+            <h1>Nuevo Pedimento</h1>
+        </div>
+        <div class="card-footer">
+            <form action="/new-pedimento" method="POST">
+                <div class="form-group">
+                    <input type="text" name="referencia" placeholder="Referencia" class="form-control" autofocus>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="empresa" placeholder="Empresa" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Ejecutivo asignado: *</label>
+                    <select class="custom-select" name="ejecutivo1">
+                        <option selected="">{Nombre1}</option>
+                        <option value="1">{Nombre1}</option>
+                        <option value="2">{Nombre2}</option>
+                        <option value="3">{Nombre3}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ejecutivo 2 asignado: (opcional)</label>
+                    <select class="custom-select" name="ejecutivo2">
+                        <option selected=""></option>
+                        <option value="1">{Nombre1}</option>
+                        <option value="2">{Nombre2}</option>
+                        <option value="3">{Nombre3}</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-block">Agregar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="card text-center">
+        <div class="card-header">
+            <h1>Pedimentos Actuales</h1>
+        </div>
+        <div class="card-body">
+            {{#if pedimento}}
+            <div class="list-group">
+                {{#each pedimento}}
+                <a href="/consultpedimento/{{@key}}" id="{{@key}}" onclick="console.log(id)" data-toggle="modal" data-target="#myModal" class="list-group-item list-group-item-action">
+                    {{referencia}}
+                    {{empresa}} | 
+                    {{ejecutivo1}}
+                </a>
+                <!--<a href="/delete-pedimento/{{@key}}" class="btn btn-danger">Delete</a>-->
+                {{/each}}
+            </div>
+            {{else}}
+                <p>Aun no hay pedimentos disponibles</p>
+            {{/if}}
+        </div>
+    </div>
+</div>
+<!--/////////////////////Modal//////////////////////////-->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title">{REFERENCIA}</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            {{#if pedimentoconsul}}
+            <div class="list-group">
+                {{#each pedimentoconsul}}
+                    <h4>
+                    {{empresa}} | 
+                    {{ejecutivo1}}
+                    </h4>
+                {{/each}}
+            </div>
+            {{else}}
+                <p>ERROR 404</p>
+            {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+<!--/////////////////////END MODAL/////////////////////-->
